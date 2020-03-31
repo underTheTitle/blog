@@ -12,3 +12,7 @@ A starter template for creating a minimal blog with Markdown
 ```
 npm run build
 ```
+
+
+### 참고해라
+https://geonlee.tistory.com/206?fbclid=IwAR2uB6Tqk7nHM8Ik5BRhp6ljRwfivlbU2rrheQFW78KAHz0Qx4TSCx7FoYg
