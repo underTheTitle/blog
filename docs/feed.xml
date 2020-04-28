@@ -4,9 +4,17 @@
         <title>A Gridsome Minimal Blog</title>
         <link>https://underthetitle.github.io/blog</link>
         <description>Best blog feed evah.</description>
-        <lastBuildDate>Tue, 07 Apr 2020 00:54:29 GMT</lastBuildDate>
+        <lastBuildDate>Tue, 28 Apr 2020 23:55:07 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>Gridsome Feed Plugin</generator>
+        <item>
+            <title><![CDATA[zxcv한글만 asd]]></title>
+            <link>https://underthetitle.github.io/blog/zxcv-asd/</link>
+            <guid>https://underthetitle.github.io/blog/zxcv-asd/</guid>
+            <pubDate>Tue, 07 Apr 2020 00:00:00 GMT</pubDate>
+            <content:encoded><![CDATA[
+일단 시작해야 뭐라도 할 수 있겠지]]></content:encoded>
+        </item>
         <item>
             <title><![CDATA[Third Post]]></title>
             <link>https://underthetitle.github.io/blog/third-post/</link>
