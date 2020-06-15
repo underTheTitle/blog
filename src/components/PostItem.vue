@@ -11,7 +11,7 @@ export default {
   props: ["post"],
   computed: {
     date() {
-      return this.post.date.substring(0, this.post.date.length - 4);
+      return this.post.date.substring(0, this.post.date.length - 5);
     }
   }
 };

@@ -5,11 +5,11 @@
 // To restart press CTRL + C in terminal and run `gridsome develop`
 
 module.exports = {
-	outputDir: 'docs',
-  siteName: 'Gridsome Minimal Blog Starter',
+  outputDir: 'docs',
+  siteName: '블로그 테스트',
   siteUrl: 'https://underthetitle.github.io',
   pathPrefix: '/blog',
-  siteDescription: 'A minimalist blog built with Gridsome',
+  siteDescription: '간단한 깃허브 블로그 만들어 보기',
   plugins: [
     {
       use: '@gridsome/source-filesystem',

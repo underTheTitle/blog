@@ -13,7 +13,7 @@ export default {
     PostList,
   },
   metaInfo: {
-    title: "A simple blog"
+    title: "블로그 타이틀"
   },
   computed: {
     years() {
@@ -45,7 +45,7 @@ query {
         title
         timeToRead
         description
-        date (format: "MMM D YYYY")
+        date (format: "MM월 DD일 YYYY년")
         path
       }
     }
