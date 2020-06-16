@@ -4,79 +4,354 @@
         <title>A Gridsome Minimal Blog</title>
         <link>https://underthetitle.github.io/blog</link>
         <description>Best blog feed evah.</description>
-        <lastBuildDate>Tue, 28 Apr 2020 23:55:07 GMT</lastBuildDate>
+        <lastBuildDate>Tue, 16 Jun 2020 01:35:31 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>Gridsome Feed Plugin</generator>
         <item>
-            <title><![CDATA[zxcv한글만 asd]]></title>
-            <link>https://underthetitle.github.io/blog/zxcv-asd/</link>
-            <guid>https://underthetitle.github.io/blog/zxcv-asd/</guid>
-            <pubDate>Tue, 07 Apr 2020 00:00:00 GMT</pubDate>
+            <title><![CDATA[terms aggs에서 script로 정규식 사용]]></title>
+            <link>https://underthetitle.github.io/blog/terms-aggs-script/</link>
+            <guid>https://underthetitle.github.io/blog/terms-aggs-script/</guid>
+            <pubDate>Mon, 27 Apr 2020 00:00:00 GMT</pubDate>
             <content:encoded><![CDATA[
-일단 시작해야 뭐라도 할 수 있겠지]]></content:encoded>
-        </item>
-        <item>
-            <title><![CDATA[Third Post]]></title>
-            <link>https://underthetitle.github.io/blog/third-post/</link>
-            <guid>https://underthetitle.github.io/blog/third-post/</guid>
-            <pubDate>Thu, 23 Jan 2020 00:00:00 GMT</pubDate>
-            <content:encoded><![CDATA[
+데이터가 d_100, w_100 이런식으로 저장되어 있었는데,
+
+d, w따로 나누어서 갯수를 집계해야 할 일이 생겼다.
+
+어떻게 처리할까 생각하다가 정규식을 이용해서 분리했다.
+
+```json
+{
+  "size": 0,
+  "aggs": {
+    "office": {
+      "terms": {
+        "field": "office_field"
+      },
+      "aggs": {
+        "danger": {
+          "terms": {
+            "script": "String aaa = /_/.split(doc.value_list[0])[0]; if (aaa == 'd') {doc['grp_nm'].value}",
+            "size": 20
+          }
+        },
+      "aggs": {
+        "warning": {
+          "terms": {
+            "script": "String aaa = /_/.split(doc.value_list[0])[0]; if (aaa == 'w') {doc['grp_nm'].value}",
+            "size": 20
+          }
+        }
+      }
+    }
+  }
+}
 ```
-hello_world = 'hello world'
-print(hello_world)
-```]]></content:encoded>
+]]></content:encoded>
         </item>
         <item>
-            <title><![CDATA[Second Post]]></title>
-            <link>https://underthetitle.github.io/blog/second-post/</link>
-            <guid>https://underthetitle.github.io/blog/second-post/</guid>
-            <pubDate>Wed, 25 Dec 2019 00:00:00 GMT</pubDate>
+            <title><![CDATA[trim script]]></title>
+            <link>https://underthetitle.github.io/blog/trim-script/</link>
+            <guid>https://underthetitle.github.io/blog/trim-script/</guid>
+            <pubDate>Mon, 27 Apr 2020 00:00:00 GMT</pubDate>
             <content:encoded><![CDATA[
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla fringilla arcu sit amet nunc pulvinar sagittis. Quisque condimentum faucibus posuere. Etiam nisl ex, lobortis a felis a, ornare accumsan turpis. Etiam tristique lobortis nisl eu congue. Vivamus tempus enim pharetra sem rhoncus, eget facilisis turpis commodo. Aenean posuere ultricies erat, a dapibus tortor semper eget. Nullam sed cursus risus. Fusce massa ligula, varius pellentesque magna in, malesuada faucibus magna. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Sed dui turpis, fermentum ut varius non, sollicitudin quis elit. Sed dignissim enim id nulla vehicula, nec accumsan ante vestibulum. Donec luctus mollis mi ut iaculis. Aenean sit amet erat mi.
+keyword필드의 앞, 뒤 공백을 잘라야 할 일이 생겨서 쿼리를 작성해보았다.
 
-Pellentesque vehicula et urna eu imperdiet. Vestibulum fermentum dignissim mauris, consectetur facilisis risus ornare vitae. Etiam ut vulputate felis. Curabitur lobortis tempus erat sed molestie. Nullam cursus vulputate turpis, porttitor pellentesque enim pharetra non. Donec facilisis nunc sit amet justo varius vestibulum. Vestibulum suscipit elit sit amet vestibulum pellentesque. Ut maximus eu odio vel gravida. In vitae est quis mi sodales semper. Maecenas ac fringilla eros, non consectetur velit. Donec urna odio, aliquet vel urna non, sagittis vestibulum est. Maecenas nec fringilla ante, eget consectetur sapien. Sed in scelerisque sem.
+```json
+GET test_index/_update_by_query
 
-Nam vehicula nulla est, vitae maximus nisi sagittis vitae. Ut nec sagittis magna, sed gravida nunc. Donec ex lacus, cursus nec venenatis sit amet, finibus sed lacus. Sed pulvinar, tortor non pulvinar sodales, magna nulla aliquam ante, eu molestie lacus risus quis magna. Vestibulum ornare vulputate velit vel finibus. Vestibulum nibh risus, volutpat nec enim et, semper posuere mi. Proin dignissim et elit quis volutpat. Integer sagittis congue leo, at ornare turpis ultrices in. Sed id congue magna, eget eleifend odio. Pellentesque venenatis, eros sit amet molestie ultricies, justo lorem interdum sem, a mattis odio tellus id purus. Aliquam consectetur tortor a ipsum hendrerit, id vestibulum leo mattis. Morbi sem lectus, blandit ut magna at, tempor placerat ligula.
+{
+  "script": {
+    "inline": "ctx._source.str_field = ctx._source.str_field.trim();",
+    "lang": "painless"
+  }
+}
 
-Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Ut scelerisque quam at lobortis sodales. Nullam massa nisi, consectetur id faucibus malesuada, scelerisque nec elit. Vivamus a varius erat. Maecenas lacus orci, viverra non tristique ut, aliquam vitae nulla. Donec fringilla pretium lorem, et tincidunt felis consequat eget. Integer malesuada pretium turpis, a euismod orci varius eu. Suspendisse potenti. Ut aliquam, dolor ut aliquam auctor, velit neque porta magna, nec maximus tellus lacus at erat. Ut id tempor magna. Quisque gravida ipsum ac libero convallis ornare.
-
-Aliquam ultrices ante a libero ultricies molestie. Sed bibendum sollicitudin metus id suscipit. Aenean risus arcu, consectetur eu lectus sit amet, dapibus efficitur leo. Nam sagittis enim et mi ornare, sodales placerat quam porttitor. Sed venenatis diam vel dolor imperdiet maximus. Integer vitae odio diam. Vestibulum consequat libero at eros hendrerit, eu mattis purus iaculis. Morbi aliquam in ligula sed porta. Ut non enim porta, ultrices eros vel, lacinia mi. Nam luctus augue in iaculis suscipit.]]></content:encoded>
+"  문 자  열  "-> "문 자  열"
+```
+]]></content:encoded>
         </item>
         <item>
-            <title><![CDATA[First Post]]></title>
-            <link>https://underthetitle.github.io/blog/first-post/</link>
-            <guid>https://underthetitle.github.io/blog/first-post/</guid>
-            <pubDate>Sat, 20 Apr 2019 00:00:00 GMT</pubDate>
+            <title><![CDATA[Too many dynamic script compilations within 에러]]></title>
+            <link>https://underthetitle.github.io/blog/too-many-dynamic-script-compilations-within/</link>
+            <guid>https://underthetitle.github.io/blog/too-many-dynamic-script-compilations-within/</guid>
+            <pubDate>Thu, 13 Jun 2019 00:00:00 GMT</pubDate>
             <content:encoded><![CDATA[
-This is the first post, it is written in Markdown.
+## Too many dynamic script compilations within 에러
 
-# Here's some big text
-
-- and some lists 
-    - just to show off all of the different elements 
-
-### How about some code?
-
-``` 
-Yeah we've got that too!
+```json
+{
+  "error": {
+    "root_cause": [
+      {
+        "type": "circuit_breaking_exception",
+        "reason": "[script] Too many dynamic script compilations within, max: [75/5m]; please use indexed, or scripts with parameters instead; this limit can be changed by the [script.max_compilations_rate] setting",
+        "bytes_wanted": 0,
+        "bytes_limit": 0
+      }
+    ]
+    ...
+  "status": 400
+}
 ```
 
-Inline? ```i think so```
+검색 결과 일정시간안에 너무 많은 스크립트가 발생해서 생기는 오류.
 
-## Images
-![Motorcycle](https://images.unsplash.com/photo-1558981806-ec527fa84c39?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80)
-![Campfire](https://images.unsplash.com/photo-1497906539264-eb74442e37a9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80)
+75/5m 으로 세팅되어 있는데 5분에 75개까지의 스크립트를 실행 할 수 있다는 의미.
 
-## Tables
+공식문서를 찾아보니 스크립트를 사용할 떄 가급적 파라미터를 사용하기를 권장한다.
 
-| Option | Description |
-| ------ | ----------- |
-| one   | first option |
-| two | second option |
-| three    | third option |
+- <https://www.elastic.co/guide/en/elasticsearch/reference/current/modules-scripting-using.html#prefer-params>
 
-# Blockquotes
-> "You miss 100% of the shots you don't take -Wayne Gretzky" -Michael Scott]]></content:encoded>
+@TODO 스크립트 캐시 확인
+]]></content:encoded>
+        </item>
+        <item>
+            <title><![CDATA[생활코딩 npm 강의 정리]]></title>
+            <link>https://underthetitle.github.io/blog/npm/</link>
+            <guid>https://underthetitle.github.io/blog/npm/</guid>
+            <pubDate>Wed, 12 Jun 2019 00:00:00 GMT</pubDate>
+            <content:encoded><![CDATA[
+## NPM(Node Packge Manager)
+
+스마트폰에서 어플을 다운로드 받을 때 플레이스토어에서 다운로드 받듯이, 노드JS에서 동작하는 여러 프로그램(패키지)을 관리해주는게 npm이다.
+
+## npm 설치 및 실행
+
+nodejs를 설치하면 자동으로 설치가 된다.
+
+### 실행
+
+```bash
+# 노드, npm 버전 확인
+node -v
+npm -v
+```
+
+## 패키지 검색과 설치 그리고 실행
+
+### 검색
+
+<https://www.npmjs.com/> 에서 원하는 패키지를 찾을 수 있다.
+
+npm에서 설치하는 프로그램은 2가지 종류
+
+- 독립적으로 실행되는 커맨드라인 프로그램
+- 부품으로서 사용되어 다른 소프트웨어의 일부로 사용되는 프로그램
+
+### 설치
+
+```bash
+npm install (설치할 패키지)
+# 엔터를 치면 현재 위치하고 있는 디렉토리에 패키지가 다운로드 된다.
+# -> 내가 지금 만들려고 하는 프로그램의 부품으로 쓰겠다.
+# 만약 이 컴퓨터 어디에서 실행시키건 동작하는 전역적인, 독립적인 프로그램으로 다운로드 하려면 -g를 붙여준다. (로컬은 -l인데 어차피 안 붙여주면 로컬)
+
+npm install -g (설치할 패키지)
+# 리눅스에서는 관리자 계정으로 설치해야 한다.(sudo npm install -g)
+```
+
+## 패키지의 목록 보기와 업데이트 그리고 삭제
+
+### 목록 조회
+
+```bash
+# 현재 머물고 있는 디렉토리에 있는 패키지 조회
+npm list
+
+# 전역 패키지 조회
+npm list -g
+
+# 전역 패키지 조회 하면 각 패키지마다 사용되고있는 패키지 정보가 표시되는데 자신이 설치한 패키지만 보고 싶다면
+npm list -g --depth=0
+```
+
+### 업데이트
+
+```bash
+# -g를 안붙이면 현재 디렉토리만, -g는 컴퓨터 전체
+npm update -g (패키지명)
+```
+
+### 삭제
+
+```bash
+npm uninstall -g (패키지명)
+```
+
+동영상 - <https://opentutorials.org/module/4044>]]></content:encoded>
+        </item>
+        <item>
+            <title><![CDATA[alias 저장하기]]></title>
+            <link>https://underthetitle.github.io/blog/alias/</link>
+            <guid>https://underthetitle.github.io/blog/alias/</guid>
+            <pubDate>Tue, 11 Jun 2019 00:00:00 GMT</pubDate>
+            <content:encoded><![CDATA[
+## .bashrc쉘에 등록
+
+alias는 터미널을 껐다가 키면 사라지는데 영구히 저장하고 싶다면 .bashrc쉘에 등록해줘야 한다.
+
+```sh
+# home디렉토리의 .bashrc쉘 열기($HOME/.bashrc)
+# 난 root계정으로 실행했으므로
+vim /root/.bashrc
+
+# 빈 자리에다가 alias등록
+alias ll='ls -al'
+```
+
+참고 : <https://movenpick.tistory.com/26>
+
+@TODO 사용자 계정으로도 만들어서 테스트해보자]]></content:encoded>
+        </item>
+        <item>
+            <title><![CDATA[tomcat https 적용]]></title>
+            <link>https://underthetitle.github.io/blog/tomcat-https/</link>
+            <guid>https://underthetitle.github.io/blog/tomcat-https/</guid>
+            <pubDate>Tue, 11 Jun 2019 00:00:00 GMT</pubDate>
+            <content:encoded><![CDATA[
+## SSL인증서 발급
+
+개인 인증서를 발급받아서 HTTPS통신을 하고자 한다.
+
+```bash
+# 개인키 생성
+openssl genrsa -des3 -out server.key 2048
+
+# 인증요청서 생성. (자신의 정보 입력)
+openssl req -new -key server.key -out server.csr
+
+# (선택) 개인키에서 패스워드 제거
+cp server.key server.key.origin
+openssl rsa -in server.key.origin -out server.key
+
+# 인증서 생성
+openssl x509 -req -days 3650 -in server.csr -signkey server.key -out server.crt
+# 여기까지 마치면 서버 인증서인 server.crt파일이 생성된다.
+```
+
+## SSl인증서를 발급받았으면 이제 톰캣에 맞는 형식으로 바꾸어 준다
+
+server.crt가 준비된 후 실행
+
+```bash
+# 인증서이름(server.crt), 인증서키이름(server.key)를 톰캣에 맞는 형식으로(.keystore) 바꿔줌.
+openssl pkcs12 -export -in server.crt -inkey server.key -out .keystore -name tomcat
+```
+
+## 톰캣 인증서를 생성했으면 server.xml에서 설정해줘야 한다
+
+```xml
+<Connector port="443" protocol="org.apache.coyote.http11.Http11NioProtocol"
+    maxthreads="150" sslenabled="true" scheme="https" secure="true"
+    clientauth="false" sslprotocol="TLS"
+    keystorepass="인증서 비밀번호" keystorefile="인증서 위치"/>
+```
+
+## http로 접속 시 https로 자동 리다이렉트 설정
+
+```xml
+<!-- web.xml에 이 부분을 넣으면 된다는 데 제대로 되지 않아서 좀 더 알아봐야 겠다. -->
+
+<security-constraint>
+    <web-resource-collection>
+        <web-resource-name>SSL Forward</web-resource-name>
+        <url-pattern>/*</url-pattern>
+    </web-resource-collection>
+    <user-data-constraint>
+        <transport-guarantee>CONFIDENTIAL</transport-guarantee>
+    </user-data-constraint>
+</security-constraint>
+```
+
+참고 :
+
+- <https://zetawiki.com/wiki/%EB%A6%AC%EB%88%85%EC%8A%A4_%EC%9E%90%EC%B2%B4%EC%84%9C%EB%AA%85_SSL_%EC%9D%B8%EC%A6%9D%EC%84%9C_%EC%83%9D%EC%84%B1>
+- <https://namjackson.tistory.com/25>
+- <https://offbyone.tistory.com/262>
+
+@TODO 각각의 명령어가 무슨역할을 하는지 알아보자
+
+@TODO openssl패키지를 이용하여 개인키를 생성했는데 keytool로도 해보자
+
+@TODO http로 접속 시 https로 리다이렉트 되게 하는 법 알아보기
+]]></content:encoded>
+        </item>
+        <item>
+            <title><![CDATA[현재 내 .vimrc설정]]></title>
+            <link>https://underthetitle.github.io/blog/vimrc/</link>
+            <guid>https://underthetitle.github.io/blog/vimrc/</guid>
+            <pubDate>Tue, 11 Jun 2019 00:00:00 GMT</pubDate>
+            <content:encoded><![CDATA[
+## .vimrc경로
+
+/home/사용자폴더/.vimrc
+
+## 현재 내 설정
+
+```vim
+" Syntax Highlighting
+if has("syntax")
+    syntax on
+endif
+
+" 자동 들여쓰기
+set autoindent
+set cindent
+
+set nu " 줄 번호
+
+set ts=4 " Tab 너비
+
+set shiftwidth=4 " 자동 인덴트할 때 너비
+
+" 마지막으로 수정된 곳에 커서를 위치함
+au BufReadPost *
+\ if line("'\") > 0 && line ("'\") <= line("$") |
+\ exe "norm g' \" |
+\ endif
+
+set laststatus=2 " 상태바 표시를 항상한다.
+```
+
+## 리눅스에서는 각 사용자 폴더에다가 하면 되지만
+
+### window에서 .vimrc를 생성
+
+**C:\Users\사용자폴더**에 생성
+]]></content:encoded>
+        </item>
+        <item>
+            <title><![CDATA[git 계정 설정]]></title>
+            <link>https://underthetitle.github.io/blog/git/</link>
+            <guid>https://underthetitle.github.io/blog/git/</guid>
+            <pubDate>Mon, 10 Jun 2019 00:00:00 GMT</pubDate>
+            <content:encoded><![CDATA[
+## 전역 설정
+
+따로 설정하지 않았을 때 모든 프로젝트에서 동일하게 사용하는 유저 이름, 이메일
+
+```bash
+git config --global user.name "유저이름"
+git config --global user.email "유저이메일"
+```
+
+## 만약 프로젝트 마다 다른 계정을 사용하고 싶으면
+
+해당 프로젝트 폴더에 가서 --global 부분을 제거하고 입력하면 된다.
+
+```bash
+git config user.name "이 프로젝트에서만 쓰는 유저이름"
+git config user.email "이 프로젝트에서만 쓰는 유저이메일"
+```
+
+## 설정 확인하기
+
+각 프로젝트 폴더마다 다르게 나온다.
+
+```bash
+git config --list
+```
+]]></content:encoded>
         </item>
     </channel>
 </rss>

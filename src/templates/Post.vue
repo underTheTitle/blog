@@ -2,7 +2,7 @@
   <Layout>
     <div class="article">
       <h1 class="article-title">{{$page.post.title}}</h1>
-      <p class="article-date"> {{ $page.post.date}} · <i>{{$page.post.timeToRead}} min read</i></p>
+      <p class="article-date"> {{ $page.post.date}}</p>
       <p v-html="$page.post.content" />
     </div>
   </Layout>
@@ -28,8 +28,7 @@ query Post ($path: String!) {
     id
     title
     content
-    date (format: "D MMMM YYYY")
-    timeToRead
+    date (format: "YYYY년 MM월 DD일")
   }
 }
 </page-query>

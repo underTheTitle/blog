@@ -2,7 +2,6 @@
   <div class="post-item">
     <span class="date">{{date}}</span>
     <g-link :to="post.path" class="read">{{post.title}}</g-link>
-    <span class="time-to-read"><i>{{post.timeToRead}} min read</i></span>
   </div>
 </template>
 
@@ -22,10 +21,5 @@ export default {
   margin-right:10px;
   min-width: 60px;
   display:inline-block;
-}
-.time-to-read {
-  margin-left:10px;
-  color:gray;
-  font-size:.8em;
 }
 </style>
